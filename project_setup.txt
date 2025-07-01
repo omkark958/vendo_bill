@@ -1,0 +1,112 @@
+lib/
+├── main.dart                 # Entry point of your app
+├── app.dart                  # Optional: App-level setup (themes, routing)
+├── core/                     # Core utilities, constants, enums, services
+│   ├── constants/
+│   ├── enums/
+│   ├── errors/
+│   ├── extensions/
+│   ├── utils/
+│   ├── services/             # e.g., API clients, local storage, auth service
+│   └── theme/                # Theme data and styling
+│
+├── models/                   # Data models (e.g., User, Product, Invoice)
+│
+├── data/                     # Data sources & repositories
+│   ├── datasources/          # Local, remote API data sources
+│   └── repositories/         # Business logic data providers
+│
+├── features/                 # Feature-based folder structure
+│   ├── auth/                 # Signup, Login, Forgot Password
+│   │   ├── presentation/     # UI widgets, pages/screens
+│   │   ├── domain/           # Business logic, use cases, entities
+│   │   └── data/             # Data source implementation for auth
+│   │
+│   ├── products/             # Product listing, details, management
+│   │   ├── presentation/
+│   │   ├── domain/
+│   │   └── data/
+│   │
+│   ├── invoice/              # Invoice generation, PDF export
+│   │   ├── presentation/
+│   │   ├── domain/
+│   │   └── data/
+│   │
+│   ├── gst/                  # GST calculations, validations
+│   │   ├── presentation/
+│   │   ├── domain/
+│   │   └── data/
+│   │
+│   ├── calendar/             # Calendar integration and UI
+│   │
+│   └── location/             # Location services
+│
+├── widgets/                  # Reusable widgets across the app
+│
+├── routes/                   # Routing configuration and route names
+│
+├── generated/                # Code generated files (e.g. localization)
+│
+└── l10n/                     # Localization files (intl, arb files)
+
+#installed jabba for java version management openjdk@1.17.0 and set system env variable C:\Users\Admin\.jabba\jdk\openjdk@1.17.0\bin
+   ^in git bash
+#refer for all set up ---> (https://chatgpt.com/share/686021e6-bc40-8003-b1a5-c10eaf05ef8a)
+#for fvm setup sys env var C:\Users\Admin\AppData\Local\Pub\Cache\bin dart
+                          pub global activate fvm
+#installed get package : flutter pub add get  (get: ^4.7.2)
+
+29/06/2025
+#created App Colors and themes file for maintaining colors like primary sec for both dark and light theme of applications 
+#integrated fire base into the applications
+   *visit fire base console-->create project-->add app detailes like name ---> SHA 1 and SHA 256  [ cd andoid .\gradlew signingReport to get SHA 1 and SHA 256 ]
+     download google-services.json and place it in app level android/app/google-services.json
+     update and configure the build.gradle.kts ( both project<andoid> and app<android/app> ) according to firebase console(shows the info in firebase console)
+#installed firebase_core and flutter_messaging
+# intialized fire base 
+    WidgetsFlutterBinding.ensureInitialized();
+    await Firebase.initializeApp(); initialize
+    FirebaseMessaging.instance.requestPermission(); request permission
+    firebasemessaging.onMessage.listen((remotemessage message){}); listen for messages when app is foreground **data or notification or both block
+    FirebaseMessaging.onMessageOpenedApp.listen(RM m());listen for messages when app is opened from background *data with notification block
+    firebase.onBackgroundMessage((RM m){}) *only data block
+    FirebaseMessaging.instance.getInitialMessage(); app opened from termminated state **should be data and notification block
+
+/*******************************************************************/
+    for testing the FCM used https://fcm.googleapis.com/v1/projects/vendo-bill/messages:send also need to pass AUTH Bearer token
+    for that used nodejs code                                      /vendo-bill is project id from firebase
+   const { google } = require('googleapis');
+const path = require('path');
+
+async function getAccessToken() {
+  const auth = new google.auth.GoogleAuth({
+    keyFile: path.join(__dirname, 'service-account.json'), //service-account.json is from fire base project setting -->service account generate new private key-->click-->download json renamed to service-account.json
+    scopes: ['https://www.googleapis.com/auth/firebase.messaging']
+  });
+
+  const accessToken = await auth.getAccessToken();
+  console.log('Access Token:', accessToken);
+}
+
+getAccessToken(); //every 1 hr need to get new bearer token by running this code
+/***********************************************************************************/
+
+/***************************************************************************/
+json payload post from postman
+{
+  "message": {
+    "token": "fRiF4BbyS6-mjfq1k4Vtps:APA91bGn0e2sZtm-M8N64lGYwueuroG9aH9z5gh4byVm7EasfSdBHiPf1xSPwZrtu46DRyxuaolp6NOp05CT7bqxWjNWyvfp7jvnSlbpiyyJc24mMI9xcQQ",
+    "notification": {
+      "title": "Invoice Ready!",
+      "body": "Your new invoice is generated successfully."
+    },
+    "android": {
+      "priority": "high",
+      "notification": {
+        "click_action": "FLUTTER_NOTIFICATION_CLICK"
+      }
+    }
+  }
+}
+get fcm token from project by running FirebaseMessaging.instance.getToken();
+/**************************************************************/

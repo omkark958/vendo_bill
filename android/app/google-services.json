@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "881924787132",
+    "project_id": "vendo-bill",
+    "storage_bucket": "vendo-bill.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:881924787132:android:c2a2c4df52f5ac4312f9b9",
+        "android_client_info": {
+          "package_name": "com.example.vendo_bill"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZp2xLKfp2hmPM6QR2oFArzbD-glPICeE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
