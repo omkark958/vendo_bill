@@ -135,3 +135,12 @@ URLS-->(for testing) 'https://nominatim.openstreetmap.org/search?q=$input&format
        'https://nominatim.openstreetmap.org/reverse?lat=${argument.latitude}&lon=${argument.longitude}&format=json&addressdetails=1';
 
 /***************************************google maps integration end****************************************************/
++
+
+
+/*********************************************Hive integration start************************************************************/
+install hive, hive_flutter, path_provider
+
+
+
+/*********************************************Hive integration end************************************************************/

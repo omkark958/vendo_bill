@@ -1,9 +1,12 @@
 import 'package:get/get.dart';
+import 'package:vendo_bill/routes/binding/hive.binding.dart';
 import 'package:vendo_bill/routes/binding/main_screen_binding.dart';
+import 'package:vendo_bill/widgets/screens/hive.screen.dart';
 import 'package:vendo_bill/widgets/screens/main_screen.dart';
 
 class Approutes {
    static List<GetPage> routes=[
-    GetPage(name: "/", page:() => MainScreen(),binding:MainScreenBinding()  )
+    GetPage(name: "/", page:() => MainScreen(),binding:MainScreenBinding()  ),
+    GetPage(name: "/hive", page: ()=>HiveScreen(),binding: HiveBinding())
   ];
 }

@@ -6,7 +6,9 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart' as http;
+import 'package:vendo_bill/widgets/controllers/hive.controller.dart';
 
 class GooglemapsController extends GetxController {
   GoogleMapController? googleMapController;
@@ -15,12 +17,18 @@ class GooglemapsController extends GetxController {
   final TextEditingController searchController = TextEditingController();
   Marker? searchedMarker;
   List data = [].obs;
+  HiveController? hiveController;
+  Box? mapBox;
   @override
-  void onInit() {
+  void onInit() async{
     super.onInit();
     setCurrentLocation();
+    hiveController=await Get.put(HiveController());
+    mapBox=hiveController!.mapBox;
   }
-
+  hiveStore(String key,dynamic value)async {
+    await mapBox!.put(key, [...mapBox!.get(key)??[],'$value']);
+  }
   Future<void> setCurrentLocation() async {
     bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
@@ -74,19 +82,20 @@ class GooglemapsController extends GetxController {
       infoWindow: InfoWindow(title: "You are here"),
       icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
     );
+    await hiveStore("currentLocation", currentLatLng);
     googleMapController?.animateCamera(
       CameraUpdate.newLatLngZoom(currentLatLng, 15),
     );
   }
 
-  void onTap(LatLng argument, {name}) {
+  void onTap(LatLng argument, {name}) async{
     log('$name');
     currentLocationMarker.value = Marker(
       markerId: MarkerId("Selectedlocation"),
       position: argument,
       infoWindow: InfoWindow(title: name ?? "You are here"),
       icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
-    );
+    );    
     googleMapController?.animateCamera(
       CameraUpdate.newLatLngZoom(argument, 15),
       duration: Duration(seconds: 2),
@@ -108,7 +117,7 @@ class GooglemapsController extends GetxController {
       infoWindow: InfoWindow(title: query),
       icon: BitmapDescriptor.defaultMarker,
     );
-
+    await hiveStore("searchedLocation", query);
     googleMapController?.animateCamera(CameraUpdate.newLatLngZoom(target, 15));
   }
 
@@ -127,6 +136,7 @@ class GooglemapsController extends GetxController {
       Uri.parse(url),
       headers: {'User-Agent': 'vendo_bill/1.0 omkarkulkarni958@gmail.com'},
     );
+    await hiveStore("onSearchLoc", input);
     this.data = json.decode(response.body);
     List<String> data = this.data
         .map((item) => item['display_name'] as String)
@@ -156,6 +166,7 @@ class GooglemapsController extends GetxController {
           address['town'] ??
           address['state'] ??
           "Selected location";
+          await hiveStore("onTap", '${name??argument}');
       onTap(argument, name: name);
       Get.dialog(
         AlertDialog(

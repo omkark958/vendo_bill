@@ -36,7 +36,7 @@ FirebaseMessaging.instance.getToken().then((token) {
      Get.snackbar("From Kill State", "No Messages $initialMessage");
   }
   final List<Widget> pages =  [ GoogleMapsSceern(),
-    Center(child: Text("Bills Page")),
+    Center(child: ElevatedButton(onPressed: (){Get.toNamed("/hive");}, child: Text("Hive Page"))),
     Center(child: Text("Profile Page")),
   ]; 
 
