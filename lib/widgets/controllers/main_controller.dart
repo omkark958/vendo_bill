@@ -1,6 +1,7 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:vendo_bill/widgets/screens/googlemaps.dart';
 
 class MainController extends GetxController {
   RxBool theme=true.obs;
@@ -34,8 +35,7 @@ FirebaseMessaging.instance.getToken().then((token) {
     }
      Get.snackbar("From Kill State", "No Messages $initialMessage");
   }
-  final List<Widget> pages = const [
-    Center(child: Text("Home Page")),
+  final List<Widget> pages =  [ GoogleMapsSceern(),
     Center(child: Text("Bills Page")),
     Center(child: Text("Profile Page")),
   ]; 

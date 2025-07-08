@@ -109,4 +109,29 @@ json payload post from postman
   }
 }
 get fcm token from project by running FirebaseMessaging.instance.getToken();
+
+
+04/07/2025
+
+we need both notification and data block in remote message in flutter application then only possible to notification bar on click open the app and navigate to specipic routes
 /**************************************************************/
+/****************************google maps integration start**********************************/
+visit google cloud console and enable Android and IOS maps SDK
+credentials copy api key and add api service to that device in click on the row getInitialMessage
+set meta data in AndroidManifest.xml with api key and add USER permission related to loation in the top (if not working clean and download pckgs and run)
+add google_maps_flutter dependency in pubspec.yaml
+geolocator and geocoding
+geolocator to locate the marker
+geocoding to get the address of the marker with search places with type ahead(adddress with name/village/city/hamlet postalcode)
+
+to set satelite view pass property mapType: MapType.hybrid, shows satelite view with roads
+
+#-->integrated typeahead in maps using flutter_typeahead package by typing in text box 
+search for city and on select item update lat lon on map by google map controller and animate map 
+location along with marker icon and show selected city/village name on location marker(tootip village/city) <--#
+
+
+URLS-->(for testing) 'https://nominatim.openstreetmap.org/search?q=$input&format=json&addressdetails=1&limit=5';
+       'https://nominatim.openstreetmap.org/reverse?lat=${argument.latitude}&lon=${argument.longitude}&format=json&addressdetails=1';
+
+/***************************************google maps integration end****************************************************/
