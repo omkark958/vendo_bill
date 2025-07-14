@@ -168,3 +168,10 @@ Mobile scanner classs atttach controller
 update AndroidManifest.xml with permissions
 onDetect call back funtion in MobileScanner(onDetect:(){})
 /****************************bar code scan end********************************/
+/********************intenet connection listner start**/******************************/
+install connectivity_plus
+Connectivity().checkConnectivity() get list of connections Future<List<ConnectivityResult>>
+Connectivity().onConnectivityChanged.listen((event){
+  event.is list of List<ConnectivityResult> [ConnectivityResult.mobile, ConnectivityResult.none ,ConnectivityResult.wifi]
+})
+/********************intenet connection listner start**/******************************/
