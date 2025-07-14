@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -6,10 +9,15 @@ import 'package:vendo_bill/widgets/screens/googlemaps.dart';
 class MainController extends GetxController {
   RxBool theme=true.obs;
     RxInt selectedIndex = 0.obs;
+    final Connectivity connectivity=Connectivity();
 @override
-  void onInit() {
+  void onInit() async{
     super.onInit();
-
+    var connectivityResult=await Connectivity().checkConnectivity();
+    log('$connectivityResult');
+     connectivity.onConnectivityChanged.listen((event) {
+      log('event omkar $event');
+     },);
     // When app is in foreground
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       print('📱 Foreground message received: ${message.notification?.title}');
@@ -36,8 +44,8 @@ FirebaseMessaging.instance.getToken().then((token) {
      Get.snackbar("From Kill State", "No Messages $initialMessage");
   }
   final List<Widget> pages =  [ GoogleMapsSceern(),
-    Center(child: ElevatedButton(onPressed: (){Get.toNamed("/hive");}, child: Text("Hive Page"))),
-    Center(child: Text("Profile Page")),
+    Center(child: ElevatedButton(onPressed: (){Get.toNamed("/camera");}, child: Text("Hive Page"))),
+    Center(child:  ElevatedButton(onPressed: (){Get.toNamed("/qrscan");}, child: Text("Hive Page"))),
   ]; 
 
   

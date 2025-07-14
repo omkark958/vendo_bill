@@ -140,7 +140,31 @@ URLS-->(for testing) 'https://nominatim.openstreetmap.org/search?q=$input&format
 
 /*********************************************Hive integration start************************************************************/
 install hive, hive_flutter, path_provider
-
-
+dev dependencies--> hive generator and build_runner
+hive model
+hive box
+hive field
+initialize openbox get put delete clear close methods
+to use-->model e.g user need to craete model using hive package 
+run command-->flutter pub ru build_runner build   which creates .g.dart file we need to add 
+              part 'model.g.dart' in model.dart file, which indicates the model.dart consist of .g.dart code
 
 /*********************************************Hive integration end************************************************************/
+
+/******************************camera integration start***************************************/
+add camera package in pubspec.yaml
+add camera permission in androidManifest.xml
+add camera permission in ios info.plist
+add camera dependency in pubspec.yaml
+List<CameraDescription>? desc=availableCameras();
+CameraController(desc[0],ResolutionPreset.high);
+cameraController.initialize().then((value) {})
+in view CamaeraPreview(controller:cameracontroller);
+cameraController.takepicture()  .savePicture()
+******************************camera integration end***************************************/
+/****************************bar code scan start********************************/
+install mobile_scanner
+Mobile scanner classs atttach controller
+update AndroidManifest.xml with permissions
+onDetect call back funtion in MobileScanner(onDetect:(){})
+/****************************bar code scan end********************************/
