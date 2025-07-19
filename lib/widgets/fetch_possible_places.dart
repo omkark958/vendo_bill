@@ -8,7 +8,7 @@ import 'dart:convert';
 import 'package:vendo_bill/widgets/controllers/googlemaps.controller.dart';
 
 class GooglePlacesSearch extends GetView<GooglemapsController> {
-  Function onSelect = (Map? x) {};
+  Function onSelect = (Map? x,String text) {};
   GooglePlacesSearch(this.onSelect, {super.key});
   // final String googleApiKey = 'AIzaSyCZp2xLKfp2hmPM6QR2oFArzbD-glPICeE';
 
@@ -46,7 +46,7 @@ class GooglePlacesSearch extends GetView<GooglemapsController> {
     dynamic x=controller.data.where((item){
       return item['display_name'] == suggestion;
     });
-    onSelect(x);
+    onSelect(x,suggestion);
     
   }
 

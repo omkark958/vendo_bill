@@ -47,7 +47,8 @@ class GoogleMapsSceern extends GetView<GooglemapsController> {
                     //     border: InputBorder.none,
                     //   ),
                     // ),
-                    GooglePlacesSearch((x){
+                    GooglePlacesSearch((x,suggestion){
+                      controller.searchController.text=suggestion;
                       controller.onTap(LatLng(double.parse(x.first["lat"]), double.parse(x.first["lon"])),name:x.first['name']);
                       log('***** \n ${x.first} \n ****************');
                     })
