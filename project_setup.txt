@@ -175,3 +175,23 @@ Connectivity().onConnectivityChanged.listen((event){
   event.is list of List<ConnectivityResult> [ConnectivityResult.mobile, ConnectivityResult.none ,ConnectivityResult.wifi]
 })
 /********************intenet connection listner start**/******************************/
+/****************************************App State Start**********************************/
+**use abstract mixin class i.e WidgetsBindingobserver
+**use that mixin and override didChangeAppLifecycleState method before that add observer by providing current object in init method
+  and remove it in dispose method
+** we will get the app state when it is foreground background inactive state
+** there are seveal app state 1 resumed 2.inactive 3.paused 4.hidden 5.detached
+
+class B exteds anyClass with WidgetsBindingobserver{
+  initState(){
+    WidgetsBinding.instance.addObserver(this);
+  }
+  dispose(){
+    WidgetsBinding.instance.removeObserver(this);
+  }
+  @overrude
+  didChangeAppLifecycleState(AppLifecycleState appLifecycleState){
+
+  }
+}
+/****************************************App State End**********************************/
